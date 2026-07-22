@@ -19,8 +19,11 @@ function arg(name, def) {
   return i !== -1 && process.argv[i + 1] ? process.argv[i + 1] : def;
 }
 // src：扫描路径（支持 glob 形式的 {ext} 与 ** 递归）；tokens：可选的 token 文件。
+// style：风格预设名；glass/tech/dopamine 下渐变文字、着色辉光、高饱和属正解，放宽对应检查。
 const src = arg('--src', '.');
 const tokensPath = arg('--tokens', null);
+const style = arg('--style', 'minimal');
+const relax = ['glass', 'tech', 'dopamine'].includes(style);
 
 // 若传了 token，则把其中合法的间距/字号取出来作为容差基准；否则用内置默认阶梯。
 let spaceVals = [];
@@ -48,11 +51,23 @@ function collectFiles(pattern) {
   const fallback = ['.css', '.scss', '.less', '.tsx', '.jsx', '.vue', '.html'];
   const results = [];
   // 自写递归遍历目录（零依赖，兼容低版本 Node，无需 fs.globSync）。
+  // 跳过版本库 / 依赖 / 构建产物等巨型目录，否则在真实项目里会递归进
+  // .git / node_modules（数万文件）导致体检卡死、且会误读二进制文件。
+  const IGNORE = new Set([
+    '.git', 'node_modules', 'dist', 'build', '.next', '.nuxt', '.output',
+    '.svelte-kit', '.turbo', '.cache', 'coverage', 'out', '.vscode', '.idea',
+    '.husky', 'vendor',
+  ]);
   const walk = (dir) => {
-    for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
+    let entries;
+    try { entries = fs.readdirSync(dir, { withFileTypes: true }); }
+    catch { return; } // 无权限/损坏目录直接跳过
+    for (const e of entries) {
       const p = path.join(dir, e.name);
-      if (e.isDirectory()) walk(p);
-      else {
+      if (e.isDirectory()) {
+        if (IGNORE.has(e.name)) continue; // 关键：跳过巨型忽略目录
+        walk(p);
+      } else {
         const ext = path.extname(e.name);
         if ((exts.size === 0 ? fallback : [...exts]).includes(ext)) results.push(p);
       }
@@ -119,12 +134,12 @@ for (const file of files) {
       issues.push({ level: 'warn', cat: '阴影', msg: 'box-shadow 使用默认黑阴影，未着色到背景色相。' });
     }
     const hexes = v.match(/#[0-9a-fA-F]{3,6}\b/g) || [];
-    hexes.forEach((hx) => { if (saturation(hx) > 80) issues.push({ level: 'warn', cat: '阴影', msg: `box-shadow 含高饱和色 ${hx}（疑似霓虹外发光）。` }); });
+    hexes.forEach((hx) => { if (saturation(hx) > 80 && !relax) issues.push({ level: 'warn', cat: '阴影', msg: `box-shadow 含高饱和色 ${hx}（疑似霓虹外发光）。` }); });
   }
 
   // 8. oversaturated accent colors
   const allHex = text.match(/#[0-9a-fA-F]{3,6}\b/g) || [];
-  allHex.forEach((hx) => { if (saturation(hx) > 85) issues.push({ level: 'warn', cat: '色彩', msg: `高饱和色 ${hx}（饱和度 > 80%，过饱和强调色）。` }); });
+  allHex.forEach((hx) => { if (saturation(hx) > 85 && !relax) issues.push({ level: 'warn', cat: '色彩', msg: `高饱和色 ${hx}（饱和度 > 80%，过饱和强调色）。` }); });
 
   // 9. missing :focus-visible when interactive hover exists
   if (/:hover/.test(text) && !/:focus-visible/.test(text) && /(^|\s)(a|button|\.btn|input|select|textarea|\[role=["']?button)/im.test(text)) {

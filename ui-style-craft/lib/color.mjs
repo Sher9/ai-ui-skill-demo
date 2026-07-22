@@ -91,12 +91,19 @@ export function saturation(hex) { const hsl = hexToHsl(hex); return hsl ? hsl.s 
 
 // 由强调色色相派生 11 级中性色阶（50~950）。
 // 思路：固定低饱和度，让 L（明度）按感知均匀分布；亮色用浅底深字，暗色反之。
-export function generateNeutralRamp(accentHue, mode = 'light') {
-  const hue = ((accentHue % 360) + 360) % 360;
-  const L_light = [98, 96, 93, 87, 74, 62, 50, 38, 27, 17, 9];
-  const S_light = [22, 18, 16, 15, 16, 18, 18, 20, 24, 30, 16];
-  const L_dark = [9, 12, 16, 21, 28, 36, 46, 57, 69, 82, 97];
-  const S_dark = [14, 14, 15, 15, 16, 18, 20, 22, 24, 22, 12];
+// opts.tone === 'warm' 时改用固定暖色相（36°沙色），产出奶油/宣纸底（马卡龙、国潮用）。
+export function generateNeutralRamp(accentHue, mode = 'light', opts = {}) {
+  const warm = opts.tone === 'warm';
+  const hue = warm ? 36 : ((accentHue % 360) + 360) % 360;
+  const L_light = warm ? [97, 95, 92, 88, 82, 73, 62, 50, 38, 26, 15]
+                      : [98, 96, 93, 87, 74, 62, 50, 38, 27, 17, 9];
+  const S_light = warm ? [34, 30, 26, 24, 20, 18, 18, 20, 24, 28, 18]
+                      : [22, 18, 16, 15, 16, 18, 18, 20, 24, 30, 16];
+  // 暗色阶降序：50 最亮（文字）、950 最暗（背景），与亮色阶对称。
+  const L_dark = warm ? [96, 80, 68, 57, 47, 38, 30, 24, 19, 15, 12]
+                     : [97, 82, 69, 57, 46, 36, 28, 21, 16, 12, 9];
+  const S_dark = warm ? [12, 22, 26, 26, 25, 24, 23, 22, 21, 20, 20]
+                     : [14, 22, 24, 22, 20, 18, 16, 15, 15, 14, 14];
   const L = mode === 'dark' ? L_dark : L_light;
   const S = mode === 'dark' ? S_dark : S_light;
   const steps = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950];
@@ -123,11 +130,11 @@ export function generateSemanticColors(accent, mode, neutral, cr = contrastRatio
   const pick = (candidates, surfaces) =>
     candidates.find((c) => surfaces.every((s) => cr(c, s) >= 4.5)) || candidates[candidates.length - 1];
   const textSecondary = mode === 'dark'
-    ? pick([neutral[300], neutral[400], neutral[500]], [bg, surface, surface2])
-    : pick([neutral[600], neutral[700], neutral[800]], [bg, surface, surface2]);
+    ? pick([neutral[300], neutral[400], neutral[500], neutral[200]], [bg, surface, surface2])
+    : pick([neutral[600], neutral[700], neutral[800], neutral[900]], [bg, surface, surface2]);
   const textMuted = mode === 'dark'
-    ? pick([neutral[400], neutral[300], neutral[200]], [bg, surface, surface2])
-    : pick([neutral[500], neutral[600], neutral[700]], [bg, surface, surface2]);
+    ? pick([neutral[400], neutral[300], neutral[200], neutral[100]], [bg, surface, surface2])
+    : pick([neutral[500], neutral[600], neutral[700], neutral[800], neutral[900]], [bg, surface, surface2]);
   return {
     bg, surface, 'surface-2': surface2, border,
     'text-primary': textPrimary, 'text-secondary': textSecondary, 'text-muted': textMuted,

@@ -1,0 +1,52 @@
+<!-- 国潮新中式 (preset: guochao) 内容页骨架。
+     结构同 miniprogram/，配色来自 guochao preset（宣纸底 + 黛蓝主色 + 朱砂/赭金点缀 + 衬线标题）。 -->
+<view class="nav">
+  <view class="seal">墨</view>
+  <view>
+    <view class="title">拾遗集</view>
+    <view class="sub">东方美学 · 每日一赏</view>
+  </view>
+</view>
+
+<view class="divider"></view>
+
+<view class="list">
+  <view class="card">
+    <view class="kicker">瓷器 · 宋韵</view>
+    <view class="hd">雨过天青云破处</view>
+    <view class="body">汝窑的青，不张扬，却把整个夏天的雨意都收进了一只盏里。黛蓝为骨，留白为气。</view>
+    <view>
+      <text class="tag c2">汝窑</text>
+      <text class="tag c3">雅集</text>
+    </view>
+  </view>
+
+  <view class="card">
+    <view class="kicker">书画 · 山水</view>
+    <view class="hd">千里江山一卷中</view>
+    <view class="body">石青石绿层层叠染，苔绿点睛，赭金勾线。传统色谱在屏幕上依然温润可亲。</view>
+    <view>
+      <text class="tag c4">青绿</text>
+      <text class="tag c2">名画</text>
+    </view>
+  </view>
+
+  <view class="card">
+    <view class="kicker">器物 · 漆作</view>
+    <view class="hd">大漆朱砂小几</view>
+    <view class="body">朱砂入漆，历久弥新。一方小几，盛得下茶席，也盛得下慢下来的时光。</view>
+    <view>
+      <text class="tag c2">漆器</text>
+      <text class="tag c3">手作</text>
+    </view>
+  </view>
+</view>
+
+<view class="fab" hover-class="fab--hover">＋</view>
+
+<view class="tabbar">
+  <view class="tab on" hover-class="tab--hover"><text class="ic">🏛️</text>鉴赏</view>
+  <view class="tab" hover-class="tab--hover"><text class="ic">📜</text>专栏</view>
+  <view class="tab" hover-class="tab--hover"><text class="ic">🛍️</text>市集</view>
+  <view class="tab" hover-class="tab--hover"><text class="ic">👤</text>我的</view>
+</view>

@@ -1,0 +1,142 @@
+<!doctype html>
+<!-- 玻璃拟态风 (preset: glass) 落地页骨架。
+     复制后：用 `node scripts/generate-tokens.mjs --preset glass --accent "#6366f1" --out css` 产出的 tokens.css 替换下方 <style id="tokens">；
+     或保留此内联 token 直接预览。玻璃面依赖背景有彩色块供折射（见 references/styles.md）。 -->
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>玻璃拟态 · 落地页骨架</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style id="tokens">
+:root {
+  --color-neutral-50: #f9f9fb;
+  --color-neutral-100: #f3f3f7;
+  --color-neutral-200: #eaeaf0;
+  --color-neutral-300: #d9d9e3;
+  --color-neutral-400: #b2b3c7;
+  --color-neutral-500: #8d8db0;
+  --color-neutral-600: #696a96;
+  --color-neutral-700: #4e4e74;
+  --color-neutral-800: #343555;
+  --color-neutral-900: #1e1f38;
+  --color-neutral-950: #13131b;
+  --color-semantic-bg: #f9f9fb;
+  --color-semantic-surface: #ffffff;
+  --color-semantic-surface-2: #f3f3f7;
+  --color-semantic-border: #eaeaf0;
+  --color-semantic-text-primary: #1e1f38;
+  --color-semantic-text-secondary: #696a96;
+  --color-semantic-text-muted: #696a96;
+  --color-semantic-primary: #6366f1;
+  --color-semantic-primary-fg: #0a0a0b;
+  --font-family-sans: "Geist", "Satoshi", system-ui, sans-serif;
+  --font-family-mono: "Geist Mono", "JetBrains Mono", monospace;
+  --font-size-xs: 0.79rem;  --font-size-sm: 0.889rem; --font-size-base: 1rem;
+  --font-size-lg: 1.125rem; --font-size-xl: 1.266rem; --font-size-2xl: 1.424rem;
+  --font-size-3xl: 1.602rem; --font-size-4xl: 1.802rem; --font-size-5xl: 2.027rem; --font-size-6xl: 2.281rem;
+  --font-weight-regular: 400; --font-weight-medium: 500; --font-weight-semibold: 600; --font-weight-bold: 700;
+  --font-lineHeight-tight: 1.15; --font-lineHeight-normal: 1.5; --font-lineHeight-relaxed: 1.625;
+  --font-letterSpacing-tighter: -0.02em; --font-letterSpacing-normal: 0; --font-letterSpacing-wide: 0.025em;
+  --space-0: 0; --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px;
+  --space-5: 20px; --space-6: 24px; --space-8: 32px; --space-10: 40px; --space-12: 48px; --space-16: 64px; --space-20: 80px;
+  --radius-none: 0; --radius-sm: 4px; --radius-md: 8px; --radius-lg: 12px; --radius-xl: 16px; --radius-2xl: 24px; --radius-full: 9999px;
+  --shadow-sm: 0 1px 2px 0 rgba(99, 102, 241, 0.12);
+  --shadow-md: 0 4px 14px -2px rgba(99, 102, 241, 0.3), 0 0 0 1px rgba(99, 102, 241, 0.14);
+  --shadow-lg: 0 12px 34px -6px rgba(99, 102, 241, 0.4), 0 0 0 1px rgba(99, 102, 241, 0.16);
+  --shadow-xl: 0 22px 52px -8px rgba(99, 102, 241, 0.48), 0 0 0 1px rgba(99, 102, 241, 0.18);
+  --glass-bg: rgba(255, 255, 255, 0.55);
+  --glass-bg-dark: rgba(20, 22, 34, 0.50);
+  --glass-border: rgba(255, 255, 255, 0.45);
+  --glass-blur: 18px;
+  --glass-shadow: 0 8px 32px -8px rgba(15, 23, 42, 0.20);
+  --motion-duration-fast: 150ms; --motion-duration-normal: 250ms; --motion-duration-slow: 400ms;
+  --motion-easing-standard: cubic-bezier(0.4, 0, 0.2, 1);
+}
+</style>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--font-family-sans); color: var(--color-semantic-text-primary); line-height: var(--font-lineHeight-normal); -webkit-font-smoothing: antialiased; }
+/* 彩色背景块：玻璃赖以折射的前提（无它则玻璃感出不来） */
+.bg { position: fixed; inset: 0; z-index: -1; background:
+  radial-gradient(40% 40% at 15% 20%, #c4b5fd 0%, transparent 60%),
+  radial-gradient(45% 45% at 85% 25%, #67e8f9 0%, transparent 60%),
+  radial-gradient(50% 50% at 70% 90%, #f9a8d4 0%, transparent 60%),
+  linear-gradient(160deg, #eef2ff, #fdf2f8); }
+
+.wrap { max-width: 1120px; margin: 0 auto; padding: 0 var(--space-6); }
+.nav { display: flex; align-items: center; justify-content: space-between; padding: var(--space-5) 0; }
+.brand { font-weight: var(--font-weight-semibold); letter-spacing: var(--font-letterSpacing-tighter); }
+.nav-links { display: flex; gap: var(--space-6); }
+.nav-links a { color: var(--color-semantic-text-secondary); text-decoration: none; font-size: var(--font-size-sm); }
+.btn { font: inherit; cursor: pointer; border: none; border-radius: var(--radius-full); padding: var(--space-2) var(--space-5); font-weight: var(--font-weight-medium); }
+.btn-primary { background: var(--color-semantic-primary); color: var(--color-semantic-primary-fg); }
+.btn-primary:focus-visible, a:focus-visible { outline: 2px solid var(--color-semantic-primary); outline-offset: 2px; }
+
+/* 玻璃磨砂工具类（来自预设 --glass-*） */
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+}
+
+.hero { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: var(--space-12); align-items: center; padding: var(--space-16) 0 var(--space-20); }
+.hero h1 { font-size: var(--font-size-6xl); font-weight: var(--font-weight-bold); line-height: var(--font-lineHeight-tight); letter-spacing: var(--font-letterSpacing-tighter); }
+.hero p { color: var(--color-semantic-text-secondary); font-size: var(--font-size-lg); margin: var(--space-4) 0 var(--space-6); max-width: 46ch; }
+.hero-actions { display: flex; gap: var(--space-3); }
+.eyebrow { font-family: var(--font-family-mono); font-size: var(--font-size-xs); color: var(--color-semantic-primary); letter-spacing: var(--font-letterSpacing-wide); text-transform: uppercase; }
+
+/* 玻璃卡片：浮在彩色背景上，文字用加深的 text-primary 保对比 */
+.panel { border-radius: var(--radius-2xl); padding: var(--space-8); }
+.panel h2 { font-size: var(--font-size-2xl); font-weight: var(--font-weight-semibold); margin-bottom: var(--space-4); }
+.row { display: flex; align-items: center; gap: var(--space-3); padding: var(--space-3) 0; border-bottom: 1px solid var(--glass-border); }
+.row:last-child { border-bottom: none; }
+.row .pill { margin-left: auto; font-size: var(--font-size-xs); padding: 4px var(--space-2); border-radius: var(--radius-full); background: rgba(99, 102, 241, 0.16); color: var(--color-semantic-primary); }
+
+.visual { border-radius: var(--radius-2xl); min-height: 320px; padding: var(--space-8); display: grid; gap: var(--space-3); }
+.visual .bar { height: 12px; border-radius: var(--radius-full); background: rgba(99, 102, 241, 0.28); }
+.visual .bar:nth-child(2) { width: 80%; }
+.visual .bar:nth-child(3) { width: 60%; background: rgba(236, 72, 153, 0.28); }
+.visual .bar:nth-child(4) { width: 90%; background: rgba(34, 211, 238, 0.28); }
+
+@media (max-width: 880px) {
+  .hero { grid-template-columns: 1fr; gap: var(--space-8); }
+  .nav-links { display: none; }
+  .hero h1 { font-size: var(--font-size-5xl); }
+}
+</style>
+</head>
+<body>
+  <div class="bg"></div>
+  <div class="wrap">
+    <nav class="nav">
+      <div class="brand">Aurora</div>
+      <div class="nav-links"><a href="#">产品</a><a href="#">模板</a><a href="#">定价</a></div>
+      <button class="btn btn-primary">免费开始</button>
+    </nav>
+
+    <header class="hero">
+      <div class="panel glass">
+        <span class="eyebrow">// design system</span>
+        <h1>通透、轻盈、有层次</h1>
+        <p>玻璃拟态靠半透明面与背景色彩折射营造纵深；文字保持高对比，磨砂不牺牲可读性。</p>
+        <div class="hero-actions">
+          <button class="btn btn-primary">创建项目</button>
+          <button class="btn glass">查看演示</button>
+        </div>
+      </div>
+
+      <div class="visual glass">
+        <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
+        <div class="row"><span>实时同步</span><span class="pill">已连接</span></div>
+        <div class="row"><span>协作光标</span><span class="pill">3 人在线</span></div>
+        <div class="row"><span>版本历史</span><span class="pill">∞</span></div>
+      </div>
+    </header>
+  </div>
+</body>
+</html>

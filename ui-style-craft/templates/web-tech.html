@@ -1,0 +1,176 @@
+<!doctype html>
+<!-- 科技风 (preset: tech, --mode dark) 落地页骨架。
+     复制后：用 `node scripts/generate-tokens.mjs --preset tech --mode dark --accent "#22d3ee" --out css` 产出的 tokens.css 替换下方 <style id="tokens">；
+     或保留此内联 token 直接预览。渐变标题 + 着色辉光属本风格正解（见 references/styles.md 风格例外）。 -->
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>科技风 · 落地页骨架</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style id="tokens">
+:root {
+  --color-neutral-50: #f6f8f8;
+  --color-neutral-100: #c7d9db;
+  --color-neutral-200: #9dbec3;
+  --color-neutral-300: #79a3a9;
+  --color-neutral-400: #5e878d;
+  --color-neutral-500: #4b686c;
+  --color-neutral-600: #3c5053;
+  --color-neutral-700: #2e3b3e;
+  --color-neutral-800: #232d2f;
+  --color-neutral-900: #1a2223;
+  --color-neutral-950: #14191a;
+  --color-semantic-bg: #0a0e1a;
+  --color-semantic-surface: #1a2223;
+  --color-semantic-surface-2: #232d2f;
+  --color-semantic-border: #232d2f;
+  --color-semantic-text-primary: #f6f8f8;
+  --color-semantic-text-secondary: #79a3a9;
+  --color-semantic-text-muted: #79a3a9;
+  --color-semantic-primary: #22d3ee;
+  --color-semantic-primary-fg: #0a0a0b;
+  --color-semantic-accent-2: #a855f7;
+  --color-semantic-accent-2-fg: #0a0a0b;
+  --color-semantic-accent-3: #38bdf8;
+  --color-semantic-accent-3-fg: #0a0a0b;
+  --font-family-sans: "Geist", "Satoshi", system-ui, sans-serif;
+  --font-family-mono: "Geist Mono", "JetBrains Mono", monospace;
+  --font-size-xs: 0.79rem;  --font-size-sm: 0.889rem; --font-size-base: 1rem;
+  --font-size-lg: 1.125rem; --font-size-xl: 1.266rem; --font-size-2xl: 1.424rem;
+  --font-size-3xl: 1.602rem; --font-size-4xl: 1.802rem; --font-size-5xl: 2.027rem; --font-size-6xl: 2.281rem;
+  --font-weight-regular: 400; --font-weight-medium: 500; --font-weight-semibold: 600; --font-weight-bold: 700;
+  --font-lineHeight-tight: 1.15; --font-lineHeight-normal: 1.5; --font-lineHeight-relaxed: 1.625;
+  --font-letterSpacing-tighter: -0.02em; --font-letterSpacing-normal: 0; --font-letterSpacing-wide: 0.025em;
+  --space-0: 0; --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px;
+  --space-5: 20px; --space-6: 24px; --space-8: 32px; --space-10: 40px; --space-12: 48px; --space-16: 64px; --space-20: 80px;
+  --radius-none: 0; --radius-sm: 4px; --radius-md: 8px; --radius-lg: 12px; --radius-xl: 16px; --radius-2xl: 24px; --radius-full: 9999px;
+  --shadow-sm: 0 1px 2px 0 rgba(34, 211, 238, 0.12);
+  --shadow-md: 0 4px 14px -2px rgba(34, 211, 238, 0.3), 0 0 0 1px rgba(34, 211, 238, 0.14);
+  --shadow-lg: 0 12px 34px -6px rgba(34, 211, 238, 0.4), 0 0 0 1px rgba(34, 211, 238, 0.16);
+  --shadow-xl: 0 22px 52px -8px rgba(34, 211, 238, 0.48), 0 0 0 1px rgba(34, 211, 238, 0.18);
+  --motion-duration-fast: 150ms; --motion-duration-normal: 250ms; --motion-duration-slow: 400ms;
+  --motion-easing-standard: cubic-bezier(0.4, 0, 0.2, 1);
+}
+</style>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: var(--font-family-sans);
+  background: var(--color-semantic-bg);
+  color: var(--color-semantic-text-primary);
+  line-height: var(--font-lineHeight-normal);
+  -webkit-font-smoothing: antialiased;
+}
+/* 科技底色：近黑 + 极淡青色径向辉光，制造纵深（避免纯黑） */
+body::before {
+  content: ""; position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background:
+    radial-gradient(60% 50% at 80% 0%, rgba(34, 211, 238, 0.10), transparent 70%),
+    radial-gradient(50% 50% at 0% 100%, rgba(168, 85, 247, 0.10), transparent 70%);
+}
+.wrap { max-width: 1120px; margin: 0 auto; padding: 0 var(--space-6); position: relative; z-index: 1; }
+
+/* 顶部导航 */
+.nav { display: flex; align-items: center; justify-content: space-between; padding: var(--space-5) 0; }
+.brand { display: flex; align-items: center; gap: var(--space-2); font-weight: var(--font-weight-semibold); letter-spacing: var(--font-letterSpacing-tighter); }
+.brand .dot { width: 10px; height: 10px; border-radius: var(--radius-full); background: var(--color-semantic-primary); box-shadow: var(--shadow-md); }
+.nav-links { display: flex; gap: var(--space-6); }
+.nav-links a { color: var(--color-semantic-text-secondary); text-decoration: none; font-size: var(--font-size-sm); }
+.nav-links a:hover { color: var(--color-semantic-text-primary); }
+.btn { font: inherit; cursor: pointer; border: none; border-radius: var(--radius-full); padding: var(--space-2) var(--space-5); font-weight: var(--font-weight-medium); transition: box-shadow var(--motion-duration-fast) var(--motion-easing-standard); }
+.btn-primary { background: var(--color-semantic-primary); color: var(--color-semantic-primary-fg); box-shadow: var(--shadow-md); }
+.btn-primary:hover { box-shadow: var(--shadow-lg); transform: translateY(-1px); }
+.btn-ghost { background: transparent; color: var(--color-semantic-text-primary); border: 1px solid var(--color-semantic-border); }
+.btn-primary:focus-visible, .btn-ghost:focus-visible, a:focus-visible { outline: 2px solid var(--color-semantic-primary); outline-offset: 2px; }
+
+/* Hero：渐变标题（科技风正解） */
+.hero { padding: var(--space-20) 0 var(--space-16); display: grid; gap: var(--space-8); }
+.eyebrow { font-family: var(--font-family-mono); font-size: var(--font-size-xs); color: var(--color-semantic-primary); letter-spacing: var(--font-letterSpacing-wide); text-transform: uppercase; }
+.hero h1 {
+  font-size: var(--font-size-6xl); font-weight: var(--font-weight-bold); line-height: var(--font-lineHeight-tight);
+  letter-spacing: var(--font-letterSpacing-tighter); margin: var(--space-4) 0;
+  background: linear-gradient(120deg, var(--color-semantic-primary), var(--color-semantic-accent-2));
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.hero p { color: var(--color-semantic-text-secondary); font-size: var(--font-size-lg); max-width: 52ch; }
+.hero-actions { display: flex; gap: var(--space-3); margin-top: var(--space-6); flex-wrap: wrap; }
+
+/* 特性卡：辉光阴影 + 着色描边（科技风正解）；非对称 bento，避开三等宽卡片 */
+.features { display: grid; grid-template-columns: 1.3fr 1fr; gap: var(--space-6); padding-bottom: var(--space-16); align-items: stretch; }
+.card.feature-lg { grid-row: 1 / span 2; display: flex; flex-direction: column; justify-content: center; }
+.card {
+  background: var(--color-semantic-surface); border: 1px solid var(--color-semantic-border);
+  border-radius: var(--radius-xl); padding: var(--space-6); box-shadow: var(--shadow-md);
+  transition: box-shadow var(--motion-duration-normal) var(--motion-easing-standard), transform var(--motion-duration-normal) var(--motion-easing-standard);
+}
+.card:hover { box-shadow: var(--shadow-lg); transform: translateY(-3px); }
+.card .ico { width: 40px; height: 40px; border-radius: var(--radius-md); display: grid; place-items: center; background: rgba(34, 211, 238, 0.12); color: var(--color-semantic-primary); margin-bottom: var(--space-4); }
+.card h3 { font-size: var(--font-size-xl); font-weight: var(--font-weight-semibold); margin-bottom: var(--space-2); }
+.card p { color: var(--color-semantic-text-secondary); font-size: var(--font-size-sm); }
+.tag { display: inline-block; font-family: var(--font-family-mono); font-size: var(--font-size-xs); padding: 4px var(--space-2); border-radius: var(--radius-full); }
+.tag.a2 { color: var(--color-semantic-accent-2); background: rgba(168, 85, 247, 0.14); }
+.tag.a3 { color: var(--color-semantic-accent-3); background: rgba(56, 189, 248, 0.14); }
+
+/* 数据带（非对称，避开三等宽） */
+.stats { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: var(--space-6); padding: var(--space-10) 0 var(--space-20); border-top: 1px solid var(--color-semantic-border); }
+.stat .num { font-family: var(--font-family-mono); font-size: var(--font-size-4xl); font-weight: var(--font-weight-bold); color: var(--color-semantic-primary); }
+.stat .label { color: var(--color-semantic-text-muted); font-size: var(--font-size-sm); margin-top: var(--space-1); }
+
+@media (max-width: 880px) {
+  .features, .stats { grid-template-columns: 1fr; }
+  .nav-links { display: none; }
+  .hero h1 { font-size: var(--font-size-5xl); }
+}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <nav class="nav">
+      <div class="brand"><span class="dot"></span> NEBULA</div>
+      <div class="nav-links">
+        <a href="#">产品</a><a href="#">方案</a><a href="#">文档</a><a href="#">定价</a>
+      </div>
+      <button class="btn btn-primary">免费试用</button>
+    </nav>
+
+    <header class="hero">
+      <span class="eyebrow">// real-time inference</span>
+      <h1>把推理搬上边缘，<br />延迟低至毫秒级</h1>
+      <p>面向端侧设备的推理引擎，着色辉光与渐变语言共同构建科技质感——既先锋又不刺眼。</p>
+      <div class="hero-actions">
+        <button class="btn btn-primary">开始构建</button>
+        <button class="btn btn-ghost">查看文档</button>
+      </div>
+    </header>
+
+    <section class="features">
+      <article class="card feature-lg">
+        <div class="ico">⚡</div>
+        <h3>极速推理</h3>
+        <p>INT4 量化 + 算子融合，端侧吞吐提升 3.2×。着色辉光与渐变语言共同构建科技质感——既先锋又不刺眼。</p>
+        <span class="tag a2">GPU</span>
+      </article>
+      <article class="card">
+        <div class="ico">🛡️</div>
+        <h3>隐私优先</h3>
+        <p>数据不出设备，本地完成全部计算与调度。</p>
+        <span class="tag a3">On-device</span>
+      </article>
+      <article class="card">
+        <div class="ico">🔌</div>
+        <h3>即插即用</h3>
+        <p>一行命令接入现有流水线，支持主流框架。</p>
+      </article>
+    </section>
+
+    <section class="stats">
+      <div class="stat"><div class="num">3.2×</div><div class="label">端侧吞吐提升</div></div>
+      <div class="stat"><div class="num">12ms</div><div class="label">P99 推理延迟</div></div>
+      <div class="stat"><div class="num">40+</div><div class="label">已支持模型</div></div>
+    </section>
+  </div>
+</body>
+</html>

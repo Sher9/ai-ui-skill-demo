@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Split Hero · ui-style-craft</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="_tokens.css" />
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    * { margin: 0; box-sizing: border-box; }
+    body { font-family: var(--font-sans); background: var(--color-bg); color: var(--color-text-primary); line-height: var(--line-height-normal); -webkit-font-smoothing: antialiased; }
+
+    .container { width: 100%; max-width: 1200px; margin-inline: auto; padding-inline: var(--space-6); }
+    .nav { display: flex; align-items: center; justify-content: space-between; padding-block: var(--space-5); }
+    .brand { display: flex; align-items: center; gap: var(--space-2); font-weight: var(--font-weight-semibold); font-size: var(--font-size-lg); letter-spacing: var(--letter-spacing-tighter); }
+    .brand .dot { width: 28px; height: 28px; border-radius: var(--radius-md); background: var(--color-primary); display: grid; place-items: center; color: var(--color-primary-fg); }
+    .nav-links { display: flex; gap: var(--space-6); color: var(--color-text-secondary); font-size: var(--font-size-sm); }
+    .nav-links a { color: inherit; text-decoration: none; }
+    .nav-links a:hover { color: var(--color-text-primary); }
+
+    .hero { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: var(--space-12); align-items: center; padding-block: var(--space-20); }
+    .eyebrow { display: inline-flex; align-items: center; gap: var(--space-2); font-size: var(--font-size-xs); font-weight: var(--font-weight-medium); letter-spacing: var(--letter-spacing-wide); text-transform: uppercase; color: var(--color-primary); background: color-mix(in srgb, var(--color-primary) 10%, transparent); padding: var(--space-1) var(--space-3); border-radius: var(--radius-full); }
+    .hero h1 { font-size: var(--font-size-6xl); font-weight: var(--font-weight-semibold); line-height: var(--line-height-tight); letter-spacing: var(--letter-spacing-tighter); margin-top: var(--space-5); max-width: 14ch; }
+    .hero p.sub { font-size: var(--font-size-lg); color: var(--color-text-secondary); margin-top: var(--space-5); max-width: 46ch; }
+    .cta { display: flex; gap: var(--space-3); margin-top: var(--space-8); }
+    .btn { display: inline-flex; align-items: center; gap: var(--space-2); height: 44px; padding-inline: var(--space-5); border-radius: var(--radius-md); font-weight: var(--font-weight-medium); font-size: var(--font-size-sm); cursor: pointer; border: 1px solid transparent; transition: background var(--duration-fast) var(--easing-standard), transform var(--duration-fast) var(--easing-standard); text-decoration: none; }
+    .btn-primary { background: var(--color-primary); color: var(--color-primary-fg); }
+    .btn-primary:hover { background: var(--color-primary-hover); }
+    .btn-primary:active { transform: translateY(1px); }
+    .btn-ghost { background: transparent; color: var(--color-text-primary); border-color: var(--color-border); }
+    .btn-ghost:hover { background: var(--color-surface-2); }
+
+    .trust { display: flex; align-items: center; gap: var(--space-4); margin-top: var(--space-10); color: var(--color-text-muted); font-size: var(--font-size-xs); }
+    .trust .logos { display: flex; gap: var(--space-4); opacity: 0.7; font-weight: var(--font-weight-semibold); }
+
+    /* 右栏视觉资产：着色表面 + 细噪点 + tinted 阴影 */
+    .visual { position: relative; aspect-ratio: 4 / 3; border-radius: var(--radius-2xl); background: linear-gradient(160deg, var(--color-surface) 0%, var(--color-surface-2) 100%); border: 1px solid var(--color-border); box-shadow: var(--shadow-lg); overflow: hidden; }
+    .visual::after { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: 0.04; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+    .visual .blob { position: absolute; width: 60%; height: 60%; border-radius: var(--radius-full); background: color-mix(in srgb, var(--color-primary) 22%, transparent); filter: blur(48px); top: -10%; right: -10%; }
+    .panel { position: absolute; left: var(--space-6); right: var(--space-6); bottom: var(--space-6); background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-lg); box-shadow: var(--shadow-md); padding: var(--space-4); }
+    .panel .row { display: flex; align-items: center; justify-content: space-between; padding-block: var(--space-2); }
+    .panel .row + .row { border-top: 1px solid var(--color-border); }
+    .panel .k { color: var(--color-text-secondary); font-size: var(--font-size-sm); }
+    .panel .v { font-family: var(--font-mono); font-variant-numeric: tabular-nums; font-weight: var(--font-weight-semibold); }
+
+    @media (max-width: 768px) {
+      .hero { grid-template-columns: 1fr; gap: var(--space-8); padding-block: var(--space-12); }
+      .nav-links { display: none; }
+      .hero h1 { font-size: var(--font-size-4xl); }
+    }
+  </style>
+</head>
+<body>
+  <header class="container">
+    <nav class="nav">
+      <div class="brand"><span class="dot"><i data-lucide="sparkles" style="width:16px;height:16px"></i></span> Northwind</div>
+      <div class="nav-links">
+        <a href="#">产品</a><a href="#">方案</a><a href="#">定价</a><a href="#">文档</a>
+      </div>
+      <a class="btn btn-ghost" href="#">登录</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div>
+        <span class="eyebrow"><i data-lucide="zap" style="width:14px;height:14px"></i> 全新 2.0 已发布</span>
+        <h1>把繁琐的数据流，收敛成一眼就懂。</h1>
+        <p class="sub">Northwind 用一套可组合的分析原语，让团队在数分钟内搭建出生产级看板，而不是数周。</p>
+        <div class="cta">
+          <a class="btn btn-primary" href="#">免费开始 <i data-lucide="arrow-right" style="width:16px;height:16px"></i></a>
+          <a class="btn btn-ghost" href="#">看演示</a>
+        </div>
+        <div class="trust">
+          <span>已被这些团队信赖</span>
+          <div class="logos"><span>Acme</span><span>Globex</span><span>Initech</span></div>
+        </div>
+      </div>
+      <div class="visual">
+        <div class="blob"></div>
+        <div class="panel">
+          <div class="row"><span class="k">月活跃工作区</span><span class="v">12,480</span></div>
+          <div class="row"><span class="k">平均搭建时长</span><span class="v">4m 12s</span></div>
+          <div class="row"><span class="k">数据延迟 P99</span><span class="v">38ms</span></div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <script>lucide.createIcons();</script>
+</body>
+</html>

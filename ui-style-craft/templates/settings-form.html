@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Settings Form · ui-style-craft</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="_tokens.css" />
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    * { margin: 0; box-sizing: border-box; }
+    body { font-family: var(--font-sans); background: var(--color-bg); color: var(--color-text-primary); -webkit-font-smoothing: antialiased; }
+    .wrap { width: 100%; max-width: 960px; margin-inline: auto; padding: var(--space-16) var(--space-6); display: grid; grid-template-columns: 220px 1fr; gap: var(--space-12); }
+
+    /* 左侧分组导航 */
+    .nav { display: grid; gap: var(--space-1); align-self: start; position: sticky; top: var(--space-8); }
+    .nav a { display: flex; align-items: center; gap: var(--space-2); padding: var(--space-2) var(--space-3); border-radius: var(--radius-md); color: var(--color-text-secondary); text-decoration: none; font-size: var(--font-size-sm); font-weight: var(--font-weight-medium); }
+    .nav a:hover { background: var(--color-surface-2); color: var(--color-text-primary); }
+    .nav a.active { background: color-mix(in srgb, var(--color-primary) 10%, transparent); color: var(--color-primary); }
+
+    .card { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-xl); box-shadow: var(--shadow-sm); padding: var(--space-8); }
+    .card h1 { font-size: var(--font-size-2xl); font-weight: var(--font-weight-semibold); letter-spacing: var(--letter-spacing-tighter); }
+    .card .lead { color: var(--color-text-secondary); font-size: var(--font-size-sm); margin-top: var(--space-2); margin-bottom: var(--space-6); }
+
+    .field { margin-bottom: var(--space-5); }
+    .field label { display: block; font-size: var(--font-size-sm); font-weight: var(--font-weight-medium); margin-bottom: var(--space-2); }
+    .field .hint { color: var(--color-text-muted); font-size: var(--font-size-xs); margin-top: var(--space-1); }
+    .field input, .field select {
+      width: 100%; height: 40px; padding-inline: var(--space-3); font: inherit; font-size: var(--font-size-sm);
+      color: var(--color-text-primary); background: var(--color-surface);
+      border: 1px solid var(--color-border); border-radius: var(--radius-md);
+      transition: border-color var(--duration-fast) var(--easing-standard), box-shadow var(--duration-fast) var(--easing-standard);
+    }
+    .field input:focus, .field select:focus {
+      outline: none; border-color: var(--color-primary);
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-primary) 22%, transparent);
+    }
+    .actions { display: flex; gap: var(--space-3); margin-top: var(--space-8); padding-top: var(--space-5); border-top: 1px solid var(--color-border); }
+    .btn { display: inline-flex; align-items: center; gap: var(--space-2); height: 40px; padding-inline: var(--space-5); border-radius: var(--radius-md); font-weight: var(--font-weight-medium); font-size: var(--font-size-sm); cursor: pointer; border: 1px solid transparent; text-decoration: none; }
+    .btn.primary { background: var(--color-primary); color: var(--color-primary-fg); }
+    .btn.primary:hover { background: var(--color-primary-hover); }
+    .btn.ghost { background: transparent; color: var(--color-text-primary); border-color: var(--color-border); }
+    .btn.ghost:hover { background: var(--color-surface-2); }
+
+    @media (max-width: 768px) { .wrap { grid-template-columns: 1fr; gap: var(--space-6); } .nav { position: static; flex-direction: row; flex-wrap: wrap; } }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <nav class="nav">
+      <a class="active" href="#"><i data-lucide="user" style="width:16px;height:16px"></i> 个人资料</a>
+      <a href="#"><i data-lucide="bell" style="width:16px;height:16px"></i> 通知</a>
+      <a href="#"><i data-lucide="shield" style="width:16px;height:16px"></i> 安全</a>
+      <a href="#"><i data-lucide="credit-card" style="width:16px;height:16px"></i> 账单</a>
+    </nav>
+
+    <form class="card" onsubmit="event.preventDefault()">
+      <h1>个人资料</h1>
+      <p class="lead">这些信息会显示在你的工作区与对外分享的看板中。</p>
+
+      <div class="field">
+        <label for="name">显示名称</label>
+        <input id="name" type="text" value="林知微" />
+      </div>
+      <div class="field">
+        <label for="email">邮箱</label>
+        <input id="email" type="email" value="zhiwei@northwind.io" />
+        <div class="hint">用于登录与重要通知，不会公开展示。</div>
+      </div>
+      <div class="field">
+        <label for="role">角色</label>
+        <select id="role">
+          <option>数据分析师</option>
+          <option>工程负责人</option>
+          <option>产品经理</option>
+        </select>
+      </div>
+
+      <div class="actions">
+        <button class="btn primary" type="submit">保存更改</button>
+        <button class="btn ghost" type="button">取消</button>
+      </div>
+    </form>
+  </div>
+  <script>lucide.createIcons();</script>
+</body>
+</html>

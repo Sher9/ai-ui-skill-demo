@@ -84,9 +84,34 @@ ai-ui-skill-demo/
 │   ├── references/                 # 详细规范，按需加载（避免 SKILL.md 膨胀）
 │   │   ├── design-tokens.md        # token 体系完整规范（色彩/排版/间距/圆角/阴影/动效）
 │   │   ├── visual-principles.md    # 视觉原则（层级/留白/对齐/节奏/纵深）
-│   │   ├── anti-patterns.md        # “AI 味”反模式清单 + 修正方案
+│   │   ├── layout-patterns.md      # 构图模式 + 页面骨架索引（天花板，不是地板）
+│   │   ├── styles.md               # 风格预设指南（极简/商务/玻璃/科技/马卡龙/国潮/多巴胺 + 风格例外）
+│   │   ├── mobile.md               # 移动端 / 小程序规范（rpx、CJK 字体、安全区、WXSS 限制）
+│   │   ├── fonts.md                # Geist/Satoshi 加载片段 + 中文 CJK 字体栈 + 衬线说明
+│   │   ├── polish.md               # 打磨层（表面渐变/噪点/选区/滚动条/图标/微动效）
+│   │   ├── anti-patterns.md        # “AI 味”反模式清单 + 修正方案 + 风格例外
 │   │   ├── component-patterns.md   # 按钮/卡片/表单/表格/导航/反馈组件指引
 │   │   └── interaction-states.md   # hover/focus/active/loading/empty/error 交互态规范
+│   ├── templates/                  # 可直接抄改的页面骨架
+│   │   ├── _tokens.css             # 默认 token 的 :root 变量（真实项目替换为生成的 tokens.css）
+│   │   ├── hero-split.html         # 非对称分屏首屏（web）
+│   │   ├── features-asymmetric.html# 之字特性区（web）
+│   │   ├── stats-band.html         # 数据带（web）
+│   │   ├── pricing.html            # 定价（web）
+│   │   ├── settings-form.html      # 设置表单页（web）
+│   │   ├── dashboard.html          # 后台仪表盘（web）
+│   │   ├── web-tech.html           # 科技风落地页（暗色 + 渐变标题 + 辉光卡片）
+│   │   ├── web-glass.html          # 玻璃拟态落地页（彩色背景 + 磨砂卡片）
+│   │   ├── mobile-web.html         # 移动端 web（吸顶导航+列表+底部 Tab+安全区）
+│   │   ├── miniprogram/            # 小程序极简卡片（WXML + WXSS，rpx + 安全区 + hover-class；风格无关，可配任意 preset）
+│   │   │   ├── index.wxml
+│   │   │   └── index.wxss
+│   │   ├── miniprogram-macaron/    # 小程序马卡龙（暖奶油底 + 粉彩标签）
+│   │   │   ├── index.wxml
+│   │   │   └── index.wxss
+│   │   └── miniprogram-guochao/    # 小程序国潮新中式（宣纸底 + 衬线标题 + 朱砂点缀）
+│   │       ├── index.wxml
+│   │       └── index.wxss
 │   └── assets/
 │       └── default-tokens.json     # 一套中性浅色默认 token 样本
 ├── ui-style-craft.md               # 技能设计原文文档（设计依据）
@@ -127,8 +152,29 @@ node scripts/generate-tokens.mjs \
 | `--mode` | `light` / `dark` | `light` |
 | `--density` | `compact` / `normal` / `comfortable` | `normal` |
 | `--ratio` | 字阶比例 | `1.125` |
-| `--out` | 输出格式，可多选 `json,css,ts` | `json,css,ts` |
+| `--platform` | `web` / `wechat`（小程序） | `web` |
+| `--preset` | 风格预设：`minimal` / `business` / `glass` / `tech` / `macaron` / `guochao` / `dopamine` | `minimal` |
+| `--out` | 输出格式，可多选 `json,css,ts,wxss` | `json,css,ts` |
 | `--dir` | 输出目录 | `./design-tokens` |
+
+**风格预设**：用 `--preset` 在极简基线上叠加色板 / 阴影 / 字体 / 玻璃面偏差（详见 `references/styles.md`）。常见组合：
+
+| 用户诉求 | 命令要点 |
+|---|---|
+| Web 极简 / 商务 | `--preset minimal`（商务加 `--accent` 深蓝） |
+| Web 玻璃拟态 | `--preset glass --accent "#6366f1"` |
+| Web / 小程序 科技 | `--preset tech --mode dark --accent "#22d3ee"` |
+| 小程序 马卡龙 | `--preset macaron --platform wechat --accent "#f9a8d4"` |
+| 小程序 国潮 | `--preset guochao --platform wechat --accent "#3b6ea5"` |
+| 小程序 多巴胺 | `--preset dopamine --platform wechat --accent "#ff5d8f"` |
+
+**小程序场景**：`--platform wechat` 自动把字体族切为 CJK 栈，并支持 `--out wxss` 产出 `rpx` 单位的 `tokens.wxss`（间距 `px×2`、字号 `rem×32`）：
+
+```bash
+node scripts/generate-tokens.mjs --preset macaron --platform wechat --mode light --density normal \
+  --out wxss,json --dir ./miniprogram/styles
+# 在 app.wxss 顶部：@import "styles/tokens.wxss";
+```
 
 **2) 校验对比度**
 

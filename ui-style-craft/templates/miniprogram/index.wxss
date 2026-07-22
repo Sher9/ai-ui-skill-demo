@@ -1,0 +1,83 @@
+/* 小程序列表示例样式（配合 index.wxml）。
+   本文件自含扁平 rpx token（与 web 端 _tokens.css 同义，命名一致便于迁移）。
+   真实项目可在 app.wxss @import 生成的 tokens.wxss（变量名带 --color-semantic- 前缀，
+   在此补别名即可：--color-bg: var(--color-semantic-bg); 等）。 */
+
+/* —— 扁平 rpx token（px×2 / rem×32，accent #2563eb, light, normal） —— */
+page {
+  --color-bg: #f9f9fb;
+  --color-surface: #ffffff;
+  --color-surface-2: #f3f4f7;
+  --color-border: #eaecf0;
+  --color-text-primary: #1e2638;
+  --color-text-secondary: #4e5a74;
+  --color-text-muted: #8d98b0;
+  --color-primary: #2563eb;
+  --color-primary-fg: #ffffff;
+  --color-success: #16a34a;
+  --color-danger: #dc2626;
+
+  --font-sans: "PingFang SC", "Helvetica Neue", "Microsoft YaHei", system-ui, sans-serif;
+  --font-mono: ui-monospace, "PingFang SC", monospace;
+
+  --font-size-sm: 28rpx;
+  --font-size-base: 32rpx;
+  --font-size-lg: 36rpx;
+  --line-height-normal: 1.5;
+  --letter-spacing-tighter: -0.02em;
+
+  --space-2: 16rpx;
+  --space-3: 24rpx;
+  --space-4: 32rpx;
+  --space-5: 40rpx;
+
+  --radius-md: 16rpx;
+  --radius-lg: 24rpx;
+  --radius-full: 9999rpx;
+
+  --shadow-lg: 0 20rpx 25rpx -5rpx rgba(34, 42, 57, 0.1), 0 8rpx 10rpx -6rpx rgba(34, 42, 57, 0.05);
+  --duration-fast: 150ms;
+}
+
+/* 整页 flex 撑满，避免 100vh 在移动端的 bug */
+.page { min-height: 100vh; display: flex; flex-direction: column; background: var(--color-bg);
+  font-family: var(--font-sans); color: var(--color-text-primary); font-size: var(--font-size-base);
+  line-height: var(--line-height-normal); -webkit-font-smoothing: antialiased; }
+
+/* 吸顶导航 */
+.topbar { position: sticky; top: 0; z-index: 10; display: flex; align-items: center; justify-content: space-between;
+  padding: calc(32rpx + env(safe-area-inset-top)) 40rpx 32rpx; background: var(--color-bg);
+  border-bottom: 1rpx solid var(--color-border); }
+.topbar .title { font-size: var(--font-size-lg); font-weight: 600; letter-spacing: var(--letter-spacing-tighter); }
+.topbar .icon-btn { width: 80rpx; height: 80rpx; display: flex; align-items: center; justify-content: center;
+  border-radius: var(--radius-md); color: var(--color-text-secondary); }
+.ic { font-size: 36rpx; line-height: 1; }
+
+/* 内容滚动区 */
+.scroll { flex: 1; height: 0; padding: 32rpx 32rpx 80rpx; }
+.section-title { font-size: var(--font-size-sm); font-weight: 600; color: var(--color-text-muted);
+  padding: 24rpx 16rpx 16rpx; }
+
+/* 列表行：整行可点，最小高 112rpx（触控目标达标） */
+.row { display: flex; align-items: center; gap: 24rpx; padding: 24rpx 32rpx; min-height: 112rpx;
+  background: var(--color-surface); border: 1rpx solid var(--color-border); border-radius: var(--radius-lg);
+  margin-bottom: 16rpx; }
+.avatar { width: 88rpx; height: 88rpx; border-radius: var(--radius-full); flex-shrink: 0;
+  background: rgba(37, 99, 235, 0.12); color: var(--color-primary);
+  display: flex; align-items: center; justify-content: center; font-weight: 600; }
+.meta { flex: 1; min-width: 0; }
+.meta .name { font-size: var(--font-size-base); font-weight: 500; }
+.meta .sub { font-size: var(--font-size-sm); color: var(--color-text-secondary);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.trail { display: flex; align-items: center; gap: 16rpx; color: var(--color-text-muted); font-size: var(--font-size-sm); }
+.time { font-family: var(--font-mono); }
+
+/* 按压态（替代 :hover，触屏无悬停） */
+.press { opacity: 0.92; transform: scale(0.99); }
+
+/* 底部 Tab 栏：固定 + 安全区 */
+.tabbar { position: sticky; bottom: 0; display: flex; background: var(--color-surface);
+  border-top: 1rpx solid var(--color-border); padding-bottom: env(safe-area-inset-bottom); }
+.tab { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 8rpx;
+  padding: 16rpx 0; color: var(--color-text-muted); font-size: 24rpx; }
+.tab.active { color: var(--color-primary); }

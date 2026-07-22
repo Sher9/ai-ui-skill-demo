@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pricing · ui-style-craft</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="_tokens.css" />
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    * { margin: 0; box-sizing: border-box; }
+    body { font-family: var(--font-sans); background: var(--color-bg); color: var(--color-text-primary); -webkit-font-smoothing: antialiased; }
+    .container { width: 100%; max-width: 1100px; margin-inline: auto; padding-inline: var(--space-6); }
+    .section { padding-block: var(--space-20); }
+    .head { text-align: center; max-width: 48ch; margin: 0 auto var(--space-12); }
+    .head h2 { font-size: var(--font-size-4xl); font-weight: var(--font-weight-semibold); letter-spacing: var(--letter-spacing-tighter); line-height: var(--line-height-tight); }
+    .head p { color: var(--color-text-secondary); margin-top: var(--space-3); font-size: var(--font-size-lg); }
+
+    .plans { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-5); align-items: start; }
+    .plan { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-xl); padding: var(--space-8); box-shadow: var(--shadow-sm); }
+    .plan.featured { border-color: color-mix(in srgb, var(--color-primary) 40%, transparent); background: color-mix(in srgb, var(--color-primary) 5%, var(--color-surface)); box-shadow: var(--shadow-lg); transform: translateY(-8px); position: relative; }
+    .plan .tag { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--color-primary); color: var(--color-primary-fg); font-size: var(--font-size-xs); font-weight: var(--font-weight-medium); padding: var(--space-1) var(--space-3); border-radius: var(--radius-full); }
+    .plan .name { font-weight: var(--font-weight-semibold); font-size: var(--font-size-lg); }
+    .plan .price { font-family: var(--font-mono); font-variant-numeric: tabular-nums; margin-top: var(--space-4); font-size: var(--font-size-5xl); font-weight: var(--font-weight-semibold); letter-spacing: var(--letter-spacing-tighter); }
+    .plan .price .per { font-size: var(--font-size-sm); color: var(--color-text-muted); font-family: var(--font-sans); font-weight: var(--font-weight-regular); }
+    .plan .desc { color: var(--color-text-secondary); font-size: var(--font-size-sm); margin-top: var(--space-2); min-height: 40px; }
+    .plan ul { list-style: none; margin-top: var(--space-5); display: grid; gap: var(--space-3); }
+    .plan li { display: flex; align-items: flex-start; gap: var(--space-2); font-size: var(--font-size-sm); color: var(--color-text-secondary); }
+    .plan li i { color: var(--color-success); flex-shrink: 0; margin-top: 2px; }
+    .plan .btn { display: inline-flex; align-items: center; justify-content: center; width: 100%; height: 44px; margin-top: var(--space-6); border-radius: var(--radius-md); font-weight: var(--font-weight-medium); font-size: var(--font-size-sm); text-decoration: none; border: 1px solid transparent; transition: background var(--duration-fast) var(--easing-standard); }
+    .plan .btn.primary { background: var(--color-primary); color: var(--color-primary-fg); }
+    .plan .btn.primary:hover { background: var(--color-primary-hover); }
+    .plan .btn.outline { background: transparent; color: var(--color-text-primary); border-color: var(--color-border); }
+    .plan .btn.outline:hover { background: var(--color-surface-2); }
+
+    @media (max-width: 768px) { .plans { grid-template-columns: 1fr; } .plan.featured { transform: none; } }
+  </style>
+</head>
+<body>
+  <section class="container section">
+    <div class="head">
+      <h2>按团队规模付费，不按功能阉割。</h2>
+      <p>所有套餐都含核心分析能力，差异只在规模与支持。</p>
+    </div>
+    <div class="plans">
+      <div class="plan">
+        <div class="name">Starter</div>
+        <div class="price">¥0<span class="per"> / 月</span></div>
+        <div class="desc">适合个人与小型验证项目。</div>
+        <ul>
+          <li><i data-lucide="check" style="width:16px;height:16px"></i> 3 个工作区</li>
+          <li><i data-lucide="check" style="width:16px;height:16px"></i> 每日刷新</li>
+          <li><i data-lucide="check" style="width:16px;height:16px"></i> 社区支持</li>
+        </ul>
+        <a class="btn outline" href="#">开始使用</a>
+      </div>
+      <div class="plan featured">
+        <span class="tag">最受欢迎</span>
+        <div class="name">Team</div>
+        <div class="price">¥299<span class="per"> / 月</span></div>
+        <div class="desc">成长型团队的默认选择。</div>
+        <ul>
+          <li><i data-lucide="check" style="width:16px;height:16px"></i> 无限工作区</li>
+          <li><i data-lucide="check" style="width:16px;height:16px"></i> 实时刷新</li>
+          <li><i data-lucide="check" style="width:16px;height:16px"></i> 语义层与权限</li>
+          <li><i data-lucide="check" style="width:16px;height:16px"></i> 优先工单</li>
+        </ul>
+        <a class="btn primary" href="#">免费试用 14 天</a>
+      </div>
+      <div class="plan">
+        <div class="name">Enterprise</div>
+        <div class="price">定制</div>
+        <div class="desc">合规、私有化与专属支持。</div>
+        <ul>
+          <li><i data-lucide="check" style="width:16px;height:16px"></i> 私有化部署</li>
+          <li><i data-lucide="check" style="width:16px;height:16px"></i> SSO / SCIM</li>
+          <li><i data-lucide="check" style="width:16px;height:16px"></i> 专属客户成功</li>
+        </ul>
+        <a class="btn outline" href="#">联系销售</a>
+      </div>
+    </div>
+  </section>
+  <script>lucide.createIcons();</script>
+</body>
+</html>

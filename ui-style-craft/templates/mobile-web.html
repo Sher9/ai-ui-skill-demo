@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <!-- 移动端视口：禁止缩放抖动，适配安全区 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Mobile List · ui-style-craft</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="_tokens.css" />
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    * { margin: 0; box-sizing: border-box; }
+    /* 中文界面：Geist 置于 CJK 之前，中文自然回退 PingFang/系统 */
+    body { font-family: "Geist", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+      background: var(--color-surface-2); color: var(--color-text-primary); line-height: var(--line-height-normal);
+      -webkit-font-smoothing: antialiased; }
+
+    /* 居中模拟手机宽度（真实移动端可去掉 max-width） */
+    .phone { max-width: 440px; margin-inline: auto; min-height: 100vh; background: var(--color-bg);
+      display: flex; flex-direction: column; position: relative; }
+
+    /* 吸顶导航 */
+    .topbar { position: sticky; top: 0; z-index: 10; display: flex; align-items: center; justify-content: space-between;
+      padding: calc(var(--space-4) + env(safe-area-inset-top)) var(--space-5) var(--space-4);
+      background: color-mix(in srgb, var(--color-bg) 88%, transparent); backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--color-border); }
+    .topbar h1 { font-size: var(--font-size-lg); font-weight: var(--font-weight-semibold); letter-spacing: var(--letter-spacing-tighter); }
+    .topbar .icon-btn { width: 40px; height: 40px; display: grid; place-items: center; border-radius: var(--radius-md); color: var(--color-text-secondary); }
+    .topbar .icon-btn:active { background: var(--color-surface-2); }
+
+    /* 内容区可滚动 */
+    .scroll { flex: 1; overflow-y: auto; padding: var(--space-4) var(--space-4) var(--space-10); -webkit-overflow-scrolling: touch; }
+    .section-title { font-size: var(--font-size-sm); font-weight: var(--font-weight-semibold); color: var(--color-text-muted);
+      text-transform: uppercase; letter-spacing: var(--letter-spacing-wide); margin: var(--space-4) var(--space-2) var(--space-2); }
+
+    /* 列表行：整行可点，最小高 56px 触控目标 */
+    .row { display: flex; align-items: center; gap: var(--space-3); padding: var(--space-3) var(--space-4);
+      min-height: 56px; background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-lg);
+      margin-bottom: var(--space-2); transition: background var(--duration-fast) var(--easing-standard), transform var(--duration-fast) var(--easing-standard); }
+    .row:active { background: var(--color-surface-2); transform: scale(.99); }
+    .row .avatar { width: 44px; height: 44px; border-radius: var(--radius-full); flex-shrink: 0;
+      background: color-mix(in srgb, var(--color-primary) 12%, transparent); color: var(--color-primary);
+      display: grid; place-items: center; font-weight: var(--font-weight-semibold); }
+    .row .meta { flex: 1; min-width: 0; }
+    .row .meta .name { font-size: var(--font-size-base); font-weight: var(--font-weight-medium); }
+    .row .meta .sub { font-size: var(--font-size-sm); color: var(--color-text-secondary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .row .trail { color: var(--color-text-muted); font-size: var(--font-size-sm); display: flex; align-items: center; gap: var(--space-2); }
+    .row .amount { font-family: var(--font-mono); font-variant-numeric: tabular-nums; font-weight: var(--font-weight-semibold); }
+
+    /* 底部 Tab 栏：固定 + 安全区 */
+    .tabbar { position: sticky; bottom: 0; display: flex; background: var(--color-surface);
+      border-top: 1px solid var(--color-border);
+      padding-bottom: env(safe-area-inset-bottom); }
+    .tabbar a { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px;
+      padding: var(--space-2) 0; text-decoration: none; color: var(--color-text-muted); font-size: var(--font-size-xs); }
+    .tabbar a.active { color: var(--color-primary); }
+    .tabbar a:active { opacity: .7; }
+
+    /* 浮动主操作按钮 */
+    .fab { position: absolute; right: var(--space-5); bottom: calc(72px + env(safe-area-inset-bottom));
+      width: 56px; height: 56px; border-radius: var(--radius-full); background: var(--color-primary); color: var(--color-primary-fg);
+      display: grid; place-items: center; box-shadow: var(--shadow-lg); border: none; }
+    .fab:active { transform: scale(.96); background: var(--color-primary-hover); }
+  </style>
+</head>
+<body>
+  <div class="phone">
+    <header class="topbar">
+      <div class="icon-btn"><i data-lucide="chevron-left" style="width:20px;height:20px"></i></div>
+      <h1>消息</h1>
+      <div class="icon-btn"><i data-lucide="settings" style="width:20px;height:20px"></i></div>
+    </header>
+
+    <main class="scroll">
+      <div class="section-title">今天</div>
+      <div class="row">
+        <div class="avatar">林</div>
+        <div class="meta"><div class="name">林知微</div><div class="sub">管道 nightly_etl 已完成 ✓</div></div>
+        <div class="trail"><span>09:24</span><i data-lucide="chevron-right" style="width:16px;height:16px"></i></div>
+      </div>
+      <div class="row">
+        <div class="avatar">陈</div>
+        <div class="meta"><div class="name">陈默</div><div class="sub">把看板「营收概览」分享给了你</div></div>
+        <div class="trail"><span>08:51</span><i data-lucide="chevron-right" style="width:16px;height:16px"></i></div>
+      </div>
+
+      <div class="section-title">账单</div>
+      <div class="row">
+        <div class="avatar" style="background:color-mix(in srgb,var(--color-success) 14%,transparent);color:var(--color-success)"><i data-lucide="arrow-down-left" style="width:20px;height:20px"></i></div>
+        <div class="meta"><div class="name">收入 · Starter 套餐</div><div class="sub">微信支付</div></div>
+        <div class="trail"><span class="amount" style="color:var(--color-success)">+¥299</span></div>
+      </div>
+      <div class="row">
+        <div class="avatar" style="background:color-mix(in srgb,var(--color-danger) 14%,transparent);color:var(--color-danger)"><i data-lucide="arrow-up-right" style="width:20px;height:20px"></i></div>
+        <div class="meta"><div class="name">支出 · 云资源</div><div class="sub">对公转账</div></div>
+        <div class="trail"><span class="amount" style="color:var(--color-danger)">-¥86</span></div>
+      </div>
+    </main>
+
+    <button class="fab"><i data-lucide="plus" style="width:24px;height:24px"></i></button>
+
+    <nav class="tabbar">
+      <a class="active" href="#"><i data-lucide="message-square" style="width:20px;height:20px"></i>消息</a>
+      <a href="#"><i data-lucide="layout-grid" style="width:20px;height:20px"></i>工作台</a>
+      <a href="#"><i data-lucide="bell" style="width:20px;height:20px"></i>通知</a>
+      <a href="#"><i data-lucide="user" style="width:20px;height:20px"></i>我的</a>
+    </nav>
+  </div>
+  <script>lucide.createIcons();</script>
+</body>
+</html>

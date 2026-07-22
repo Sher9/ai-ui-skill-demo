@@ -20,6 +20,20 @@
 | 间距魔法数字（13px / 17px 等） | 取 `space` 阶梯（4px 网格） |
 | 字号不属字阶 | 取 `font.size`（容差 ±1px） |
 
+## 风格例外（按预设放开）
+
+上面的"禁用"是**极简 / 商务（默认）** 基线。当用户指定 `glass` / `tech` / `dopamine` / `macaron` / `guochao` 等风格预设时，以下禁令**有意放开**——agent 不应再把它们当反模式"修复"掉（详见 `references/styles.md`）：
+
+| 放开项 | 适用预设 | 正确用法 |
+| --- | --- | --- |
+| 渐变文字 | `glass` `tech` `dopamine` | 仅 Hero 主标题 / 品牌字；用 `background-clip:text`，勿铺满正文 |
+| 霓虹外发光（着色 box-shadow） | `glass` `tech` `dopamine` | 用预设生成的辉光阴影 `var(--shadow-lg)`（主色着色、低透明度），非纯黑廉价辉光 |
+| 高饱和强调色（>80%） | `glass` `tech` `dopamine` | 青 / 紫 / 粉等高饱和仅用于强调与渐变停靠点，避免大面积刺眼平涂 |
+| 多强调色（>1 个） | `tech` `macaron` `guochao` `dopamine` | 用 `accent-2..4` 做分区 / 标签 / 图标点缀，主行动仍只用 `primary` |
+| 衬线标题 | `business` `guochao` | 仅大标题用 `--font-family-serif`，正文仍无衬线 |
+
+> 自检脚本 `audit-styles.mjs` 传 `--style <preset>` 时，会自动放宽上表对应检查，避免把风格正解误报为 error/warn。
+
 ## 检测项与级别（audit-styles.mjs 实现）
 
 | 类别 | 检测 | 级别 |

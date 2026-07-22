@@ -1,0 +1,37 @@
+<!-- 小程序列表示例（配合 index.wxss）。要点：view/text/image 组件、hover-class 按压态、
+     安全区 env()、rpx 单位、image 必设 mode。可直接拷进页面使用。
+     风格无关：把 index.wxss 顶部的扁平 token 换成 generate-tokens.mjs --preset <极简|tech|dopamine|...>
+     产出的 tokens.wxss（@import 到 app.wxss），即得到对应风格；马卡龙/国潮见 miniprogram-macaron / miniprogram-guochao。 -->
+<view class="page">
+  <!-- 吸顶导航 -->
+  <view class="topbar">
+    <view class="icon-btn" hover-class="press"><text class="ic">‹</text></view>
+    <text class="title">消息</text>
+    <view class="icon-btn" hover-class="press"><text class="ic">⚙</text></view>
+  </view>
+
+  <!-- 内容滚动区 -->
+  <scroll-view class="scroll" scroll-y>
+    <view class="section-title">今天</view>
+
+    <view class="row" hover-class="press" wx:for="{{list}}" wx:key="id">
+      <view class="avatar">{{item.initial}}</view>
+      <view class="meta">
+        <view class="name">{{item.name}}</view>
+        <view class="sub">{{item.sub}}</view>
+      </view>
+      <view class="trail">
+        <text class="time">{{item.time}}</text>
+        <text class="ic">›</text>
+      </view>
+    </view>
+  </scroll-view>
+
+  <!-- 底部 Tab 栏（固定 + 安全区） -->
+  <view class="tabbar">
+    <view class="tab active"><text class="ic">💬</text><text>消息</text></view>
+    <view class="tab" hover-class="press"><text class="ic">▦</text><text>工作台</text></view>
+    <view class="tab" hover-class="press"><text class="ic">🔔</text><text>通知</text></view>
+    <view class="tab" hover-class="press"><text class="ic">👤</text><text>我的</text></view>
+  </view>
+</view>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard · ui-style-craft</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="_tokens.css" />
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    * { margin: 0; box-sizing: border-box; }
+    body { font-family: var(--font-sans); background: var(--color-surface-2); color: var(--color-text-primary); -webkit-font-smoothing: antialiased; }
+
+    .app { display: grid; grid-template-columns: 240px 1fr; min-height: 100vh; }
+    /* 侧栏 */
+    .sidebar { background: var(--color-surface); border-right: 1px solid var(--color-border); padding: var(--space-5); display: flex; flex-direction: column; gap: var(--space-1); }
+    .brand { display: flex; align-items: center; gap: var(--space-2); font-weight: var(--font-weight-semibold); font-size: var(--font-size-lg); letter-spacing: var(--letter-spacing-tighter); padding: var(--space-2) var(--space-2) var(--space-5); }
+    .brand .dot { width: 28px; height: 28px; border-radius: var(--radius-md); background: var(--color-primary); display: grid; place-items: center; color: var(--color-primary-fg); }
+    .nav-group { font-size: var(--font-size-xs); text-transform: uppercase; letter-spacing: var(--letter-spacing-wide); color: var(--color-text-muted); padding: var(--space-3) var(--space-2) var(--space-1); }
+    .sidebar a { display: flex; align-items: center; gap: var(--space-2); padding: var(--space-2) var(--space-3); border-radius: var(--radius-md); color: var(--color-text-secondary); text-decoration: none; font-size: var(--font-size-sm); font-weight: var(--font-weight-medium); }
+    .sidebar a:hover { background: var(--color-surface-2); color: var(--color-text-primary); }
+    .sidebar a.active { background: color-mix(in srgb, var(--color-primary) 10%, transparent); color: var(--color-primary); }
+
+    /* 顶栏 */
+    .main { display: flex; flex-direction: column; }
+    .topbar { display: flex; align-items: center; gap: var(--space-4); padding: var(--space-4) var(--space-6); background: var(--color-surface); border-bottom: 1px solid var(--color-border); }
+    .search { flex: 1; max-width: 360px; display: flex; align-items: center; gap: var(--space-2); height: 38px; padding-inline: var(--space-3); background: var(--color-surface-2); border: 1px solid var(--color-border); border-radius: var(--radius-md); color: var(--color-text-muted); font-size: var(--font-size-sm); }
+    .topbar .avatar { margin-left: auto; width: 34px; height: 34px; border-radius: var(--radius-full); background: var(--color-primary); color: var(--color-primary-fg); display: grid; place-items: center; font-weight: var(--font-weight-semibold); font-size: var(--font-size-sm); }
+
+    .content { padding: var(--space-6); }
+    .content h1 { font-size: var(--font-size-2xl); font-weight: var(--font-weight-semibold); letter-spacing: var(--letter-spacing-tighter); }
+    .content .sub { color: var(--color-text-secondary); font-size: var(--font-size-sm); margin-top: var(--space-1); margin-bottom: var(--space-6); }
+
+    /* 12 列栅格，卡片跨不同列数制造非对称层次 */
+    .grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: var(--space-4); }
+    .card { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); padding: var(--space-5); }
+    .kpi { grid-column: span 3; }
+    .kpi .label { color: var(--color-text-secondary); font-size: var(--font-size-xs); }
+    .kpi .value { font-family: var(--font-mono); font-variant-numeric: tabular-nums; font-size: var(--font-size-3xl); font-weight: var(--font-weight-semibold); letter-spacing: var(--letter-spacing-tighter); margin-top: var(--space-2); }
+    .kpi .delta { font-size: var(--font-size-xs); font-weight: var(--font-weight-medium); margin-top: var(--space-1); color: var(--color-success); }
+    .chart { grid-column: span 8; min-height: 240px; }
+    .side { grid-column: span 4; }
+    .table-card { grid-column: span 12; }
+    .card h3 { font-size: var(--font-size-base); font-weight: var(--font-weight-semibold); margin-bottom: var(--space-4); }
+
+    table { width: 100%; border-collapse: collapse; font-size: var(--font-size-sm); }
+    th, td { text-align: left; padding: var(--space-3) var(--space-2); border-bottom: 1px solid var(--color-border); }
+    th { color: var(--color-text-secondary); font-weight: var(--font-weight-medium); }
+    td.num, th.num { text-align: right; font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+    tr:last-child td { border-bottom: none; }
+
+    @media (max-width: 1024px) { .app { grid-template-columns: 1fr; } .sidebar { display: none; } .kpi { grid-column: span 6; } .chart, .side { grid-column: span 12; } }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand"><span class="dot"><i data-lucide="layout-dashboard" style="width:16px;height:16px"></i></span> Northwind</div>
+      <div class="nav-group">概览</div>
+      <a class="active" href="#"><i data-lucide="layout-grid" style="width:16px;height:16px"></i> 仪表盘</a>
+      <a href="#"><i data-lucide="database" style="width:16px;height:16px"></i> 数据源</a>
+      <a href="#"><i data-lucide="workflow" style="width:16px;height:16px"></i> 管道</a>
+      <div class="nav-group">组织</div>
+      <a href="#"><i data-lucide="users" style="width:16px;height:16px"></i> 成员</a>
+      <a href="#"><i data-lucide="settings" style="width:16px;height:16px"></i> 设置</a>
+    </aside>
+
+    <div class="main">
+      <div class="topbar">
+        <div class="search"><i data-lucide="search" style="width:16px;height:16px"></i> 搜索看板、指标、管道…</div>
+        <div class="avatar">林</div>
+      </div>
+
+      <div class="content">
+        <h1>早上好，知微</h1>
+        <p class="sub">过去 24 小时，你的工作区运行平稳。</p>
+
+        <div class="grid">
+          <div class="card kpi"><div class="label">活跃工作区</div><div class="value">12,480</div><div class="delta">▲ 8.4%</div></div>
+          <div class="card kpi"><div class="label">查询量</div><div class="value">1.2M</div><div class="delta">▲ 3.1%</div></div>
+          <div class="card kpi"><div class="label">失败管道</div><div class="value">3</div><div class="delta" style="color:var(--color-danger)">▲ 2</div></div>
+          <div class="card kpi"><div class="label">平均延迟</div><div class="value">38ms</div><div class="delta">▼ 11ms</div></div>
+
+          <div class="card chart"><h3>查询吞吐</h3><div style="height:180px;display:grid;place-items:center;color:var(--color-text-muted);font-size:var(--font-size-sm)">[ 图表占位 ]</div></div>
+          <div class="card side"><h3>近期活动</h3><div style="color:var(--color-text-secondary);font-size:var(--font-size-sm);display:grid;gap:var(--space-3)">
+            <div>· 管道「nightly_etl」完成</div><div>· 成员 陈默 加入工作区</div><div>· 看板「营收概览」被分享</div>
+          </div></div>
+
+          <div class="card table-card">
+            <h3>数据源状态</h3>
+            <table>
+              <thead><tr><th>名称</th><th>类型</th><th class="num">行数</th><th class="num">延迟</th><th>状态</th></tr></thead>
+              <tbody>
+                <tr><td>prod_orders</td><td>Postgres</td><td class="num">8.4M</td><td class="num">12ms</td><td style="color:var(--color-success)">正常</td></tr>
+                <tr><td>events_stream</td><td>Kafka</td><td class="num">142M</td><td class="num">38ms</td><td style="color:var(--color-success)">正常</td></tr>
+                <tr><td>warehouse_crm</td><td>Snowflake</td><td class="num">2.1M</td><td class="num">210ms</td><td style="color:var(--color-warning)">慢</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>lucide.createIcons();</script>
+</body>
+</html>

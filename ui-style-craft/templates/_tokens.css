@@ -1,0 +1,110 @@
+/* ============================================================
+   ui-style-craft · 默认 token（:root 单一真相源）
+   真实项目里用 generate-tokens.mjs 产出的 tokens.css 替换本文件。
+   数值取自 assets/default-tokens.json（accent #2563eb / light / normal）。
+   ============================================================ */
+:root {
+  /* 颜色 —— 中性阶（由 accent 色相派生，非纯黑） */
+  --color-neutral-50: #f9f9fb;
+  --color-neutral-100: #f3f4f7;
+  --color-neutral-200: #eaecf0;
+  --color-neutral-300: #d9dce3;
+  --color-neutral-400: #b2b9c7;
+  --color-neutral-500: #8d98b0;
+  --color-neutral-600: #697796;
+  --color-neutral-700: #4e5a74;
+  --color-neutral-800: #343f55;
+  --color-neutral-900: #1e2638;
+  --color-neutral-950: #13161b;
+
+  /* 语义色 */
+  --color-bg: #f9f9fb;
+  --color-surface: #ffffff;
+  --color-surface-2: #f3f4f7;
+  --color-border: #eaecf0;
+  --color-text-primary: #1e2638;
+  --color-text-secondary: #4e5a74;
+  --color-text-muted: #4e5a74;
+  --color-primary: #2563eb;
+  --color-primary-fg: #ffffff;
+  --color-primary-hover: #1d4ed8;
+  --color-success: #16a34a;
+  --color-warning: #d97706;
+  --color-danger: #dc2626;
+  --color-info: #0891b2;
+
+  /* 字体 */
+  --font-sans: "Geist", "Satoshi", system-ui, -apple-system, sans-serif;
+  --font-mono: "Geist Mono", "JetBrains Mono", ui-monospace, monospace;
+
+  --font-size-xs: 0.79rem;
+  --font-size-sm: 0.889rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.266rem;
+  --font-size-2xl: 1.424rem;
+  --font-size-3xl: 1.602rem;
+  --font-size-4xl: 1.802rem;
+  --font-size-5xl: 2.027rem;
+  --font-size-6xl: 2.281rem;
+
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  --line-height-tight: 1.15;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.625;
+
+  --letter-spacing-tighter: -0.02em;
+  --letter-spacing-normal: 0;
+  --letter-spacing-wide: 0.025em;
+
+  /* 间距（4px 网格） */
+  --space-0: 0;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+
+  /* 圆角 */
+  --radius-none: 0;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-2xl: 24px;
+  --radius-full: 9999px;
+
+  /* 着色阴影（tinted，非默认黑） */
+  --shadow-sm: 0 1px 2px 0 rgba(34, 42, 57, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(34, 42, 57, 0.07), 0 2px 4px -2px rgba(34, 42, 57, 0.05);
+  --shadow-lg: 0 10px 15px -3px rgba(34, 42, 57, 0.08), 0 4px 6px -4px rgba(34, 42, 57, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(34, 42, 57, 0.1), 0 8px 10px -6px rgba(34, 42, 57, 0.05);
+
+  /* 动效 */
+  --duration-fast: 150ms;
+  --duration-normal: 250ms;
+  --duration-slow: 400ms;
+  --easing-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --easing-emphasized: cubic-bezier(0.2, 0, 0, 1);
+  --easing-decelerate: cubic-bezier(0, 0, 0.2, 1);
+}
+
+/* 打磨层：选区 / 滚动条 / 统一 focus ring（来自 references/polish.md） */
+::selection { background: color-mix(in srgb, var(--color-primary) 18%, transparent); color: var(--color-text-primary); }
+:where(a, button, input, select, textarea, [tabindex]):focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}

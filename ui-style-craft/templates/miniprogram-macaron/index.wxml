@@ -1,0 +1,55 @@
+<!-- 马卡龙 / 温暖治愈 (preset: macaron) 列表页骨架。
+     结构同 miniprogram/，配色来自 macaron preset（暖奶油底 + 多粉彩）。 -->
+<view class="nav">
+  <view class="title">今日小记</view>
+  <view class="sub">慢一点，也很好</view>
+</view>
+
+<!-- 粉彩心情卡：用 accent-2..5 做多色，主色 pink 仅作强调 -->
+<view class="moods">
+  <view class="mood p"><text class="emo">🌸</text><text class="lb">平静</text></view>
+  <view class="mood c2"><text class="emo">🌿</text><text class="lb">清爽</text></view>
+  <view class="mood c3"><text class="emo">☀️</text><text class="lb">雀跃</text></view>
+  <view class="mood c4"><text class="emo">🌙</text><text class="lb">困倦</text></view>
+</view>
+
+<view class="list">
+  <view class="card">
+    <view class="hd">
+      <view class="avatar">🍵</view>
+      <view>
+        <view class="name">午后的一杯茶</view>
+        <view class="meta">治愈 · 12 分钟前</view>
+      </view>
+    </view>
+    <view class="body">把手机放下一会儿，看蒸汽慢慢升起，原来什么都不做也可以很安心。</view>
+    <view>
+      <text class="chip c2">正念</text>
+      <text class="chip c5">放松</text>
+    </view>
+  </view>
+
+  <view class="card">
+    <view class="hd">
+      <view class="avatar">🌷</view>
+      <view>
+        <view class="name">给阳台添了盆花</view>
+        <view class="meta">生活 · 1 小时前</view>
+      </view>
+    </view>
+    <view class="body">马卡龙色的花盆，配上奶油色的墙，整个角落都温柔了起来。</view>
+    <view>
+      <text class="chip c4">家居</text>
+      <text class="chip c3">好物</text>
+    </view>
+  </view>
+</view>
+
+<view class="fab" hover-class="fab--hover">＋</view>
+
+<view class="tabbar">
+  <view class="tab on" hover-class="tab--hover"><text class="ic">🏠</text>首页</view>
+  <view class="tab" hover-class="tab--hover"><text class="ic">📖</text>日记</view>
+  <view class="tab" hover-class="tab--hover"><text class="ic">💡</text>灵感</view>
+  <view class="tab" hover-class="tab--hover"><text class="ic">👤</text>我的</view>
+</view>

@@ -9,6 +9,7 @@
   },
   "scripts": {
     "tokens": "node scripts/generate-tokens.mjs",
+    "tokens:wx": "node scripts/generate-tokens.mjs --platform wechat --out wxss,json",
     "contrast": "node scripts/validate-contrast.mjs",
     "audit": "node scripts/audit-styles.mjs"
   }

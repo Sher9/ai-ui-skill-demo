@@ -1,0 +1,63 @@
+/* 国潮新中式 (preset: guochao, --platform wechat)
+   扁平 rpx token 块（来自 generate-tokens.mjs --preset guochao）。真实项目用：
+     node scripts/generate-tokens.mjs --preset guochao --platform wechat --out wxss,json --dir <项目styles>
+   再在 app.wxss 顶部 @import "styles/tokens.wxss"; 并去掉本页内联 token。 */
+page {
+  --color-bg: #faf8f5;
+  --color-surface: #ffffff;
+  --color-surface-2: #f6f3ee;
+  --color-border: #f0ece5;
+  --color-text: #554630;
+  --color-text-2: #78664a;
+  --color-primary: #3b6ea5;
+  --color-primary-fg: #ffffff;
+  --color-accent-2: #c0392b;
+  --color-accent-3: #caa84a;
+  --color-accent-4: #7d8b3a;
+  --font-sans: "PingFang SC", "Helvetica Neue", "Microsoft YaHei", system-ui, sans-serif;
+  --font-serif: "Noto Serif SC", "Source Han Serif SC", serif;
+  --space-1: 8rpx; --space-2: 16rpx; --space-3: 24rpx; --space-4: 32rpx;
+  --space-5: 40rpx; --space-6: 48rpx; --space-8: 64rpx;
+  --radius-md: 16rpx; --radius-lg: 24rpx; --radius-xl: 32rpx; --radius-full: 19998rpx;
+  --shadow-md: 0 8rpx 12rpx -2rpx rgba(34, 45, 57, 0.07), 0 4rpx 8rpx -4rpx rgba(34, 45, 57, 0.05);
+  --shadow-lg: 0 20rpx 30rpx -6rpx rgba(34, 45, 57, 0.08), 0 8rpx 12rpx -8rpx rgba(34, 45, 57, 0.05);
+  --safe-bottom: env(safe-area-inset-bottom);
+  /* 宣纸底：暖奶油 + 极淡肌理（避免依赖图片） */
+  background:
+    repeating-linear-gradient(0deg, rgba(85, 70, 48, 0.015) 0 2rpx, transparent 2rpx 6rpx),
+    var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  font-size: 32rpx;
+}
+
+/* 顶部：印章式 logo + 衬线标题 */
+.nav { padding: calc(env(safe-area-inset-top) + 24rpx) var(--space-5) 24rpx; display: flex; align-items: center; gap: var(--space-3); }
+.seal { width: 72rpx; height: 72rpx; border-radius: 12rpx; background: var(--color-accent-2); color: #fff; display: flex; align-items: center; justify-content: center; font-family: var(--font-serif); font-size: 40rpx; }
+.nav .title { font-family: var(--font-serif); font-size: 46rpx; font-weight: 700; letter-spacing: 0.04em; }
+.nav .sub { font-size: 24rpx; color: var(--color-text-2); margin-top: 6rpx; }
+
+/* 朱砂分隔线（赭金细线） */
+.divider { height: 1rpx; background: linear-gradient(90deg, transparent, var(--color-accent-3), transparent); margin: var(--space-4) var(--space-5); }
+
+/* 国风作品卡：衬线标题 + 朱砂标签 */
+.list { padding: 0 var(--space-5); }
+.card { background: var(--color-surface); border: 1rpx solid var(--color-border); border-left: 6rpx solid var(--color-primary); border-radius: var(--radius-md); padding: var(--space-5); margin-bottom: var(--space-4); box-shadow: var(--shadow-md); }
+.card .kicker { font-size: 22rpx; color: var(--color-accent-2); letter-spacing: 0.08em; }
+.card .hd { font-family: var(--font-serif); font-size: 40rpx; font-weight: 700; margin: 12rpx 0; }
+.card .body { font-size: 28rpx; color: var(--color-text-2); line-height: 1.7; }
+.tag { display: inline-block; font-size: 22rpx; padding: 4rpx 16rpx; border-radius: var(--radius-full); margin-right: 12rpx; margin-top: var(--space-3); }
+.tag.c2 { background: rgba(192, 57, 43, 0.12); color: var(--color-accent-2); }
+.tag.c3 { background: rgba(202, 168, 74, 0.18); color: #8a6d1e; }
+.tag.c4 { background: rgba(125, 139, 58, 0.16); color: #4f5a23; }
+
+/* 浮动按钮（黛蓝主色） */
+.fab { position: fixed; right: var(--space-6); bottom: calc(var(--safe-bottom) + 140rpx); width: 104rpx; height: 104rpx; border-radius: var(--radius-full); background: var(--color-primary); color: var(--color-primary-fg); display: flex; align-items: center; justify-content: center; font-size: 52rpx; box-shadow: var(--shadow-lg); }
+.fab--hover { transform: scale(0.94); opacity: 0.9; }
+
+/* 底部 Tab：含安全区 */
+.tabbar { position: fixed; left: 0; right: 0; bottom: 0; display: flex; background: var(--color-surface); border-top: 1rpx solid var(--color-border); padding-bottom: var(--safe-bottom); }
+.tab { flex: 1; height: 104rpx; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6rpx; font-size: 22rpx; color: var(--color-text-2); }
+.tab .ic { font-size: 40rpx; }
+.tab.on { color: var(--color-primary); font-weight: 600; }
+.tab--hover { background: var(--color-surface-2); }

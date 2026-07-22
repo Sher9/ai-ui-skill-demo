@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Asymmetric Features · ui-style-craft</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="_tokens.css" />
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    * { margin: 0; box-sizing: border-box; }
+    body { font-family: var(--font-sans); background: var(--color-bg); color: var(--color-text-primary); line-height: var(--line-height-normal); -webkit-font-smoothing: antialiased; }
+    .container { width: 100%; max-width: 1200px; margin-inline: auto; padding-inline: var(--space-6); }
+    .section { padding-block: var(--space-20); }
+    .section-head { max-width: 52ch; margin-bottom: var(--space-12); }
+    .eyebrow { font-size: var(--font-size-xs); font-weight: var(--font-weight-medium); letter-spacing: var(--letter-spacing-wide); text-transform: uppercase; color: var(--color-primary); }
+    .section-head h2 { font-size: var(--font-size-4xl); font-weight: var(--font-weight-semibold); letter-spacing: var(--letter-spacing-tighter); line-height: var(--line-height-tight); margin-top: var(--space-3); }
+    .section-head p { color: var(--color-text-secondary); margin-top: var(--space-4); font-size: var(--font-size-lg); }
+
+    /* 之字布局：图文左右交替，每项占满宽，大留白 */
+    .feature { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-12); align-items: center; }
+    .feature + .feature { margin-top: var(--space-16); }
+    .feature:nth-child(even) .feature-media { order: -1; }
+
+    .feature h3 { font-size: var(--font-size-2xl); font-weight: var(--font-weight-semibold); letter-spacing: var(--letter-spacing-tighter); }
+    .feature p { color: var(--color-text-secondary); margin-top: var(--space-3); max-width: 42ch; }
+    .feature ul { list-style: none; margin-top: var(--space-5); display: grid; gap: var(--space-2); }
+    .feature li { display: flex; align-items: center; gap: var(--space-2); color: var(--color-text-secondary); font-size: var(--font-size-sm); }
+    .feature li i { color: var(--color-success); }
+
+    .feature-media { aspect-ratio: 4 / 3; border-radius: var(--radius-xl); background: linear-gradient(160deg, var(--color-surface) 0%, var(--color-surface-2) 100%); border: 1px solid var(--color-border); box-shadow: var(--shadow-md); position: relative; overflow: hidden; }
+    .feature-media .badge { position: absolute; top: var(--space-4); left: var(--space-4); display: grid; place-items: center; width: 44px; height: 44px; border-radius: var(--radius-md); background: var(--color-primary); color: var(--color-primary-fg); box-shadow: var(--shadow-sm); }
+
+    @media (max-width: 768px) {
+      .feature { grid-template-columns: 1fr; gap: var(--space-6); }
+      .feature:nth-child(even) .feature-media { order: 0; }
+    }
+  </style>
+</head>
+<body>
+  <section class="container section">
+    <div class="section-head">
+      <span class="eyebrow">能力</span>
+      <h2>为真实工作流而设计，而非演示稿。</h2>
+      <p>每个能力都从一线团队的痛点出发，独立可用，组合更强。</p>
+    </div>
+
+    <div class="feature">
+      <div>
+        <h3>实时管道编排</h3>
+        <p>用可视化节点把数据源、变换与目的地连起来，改动即时生效，无需重启。</p>
+        <ul>
+          <li><i data-lucide="check" style="width:16px;height:16px"></i> 声明式 DAG，版本可回溯</li>
+          <li><i data-lucide="check" style="width:16px;height:16px"></i> 失败自动重试与告警</li>
+        </ul>
+      </div>
+      <div class="feature-media"><span class="badge"><i data-lucide="workflow" style="width:22px;height:22px"></i></span></div>
+    </div>
+
+    <div class="feature">
+      <div>
+        <h3>语义层即文档</h3>
+        <p>指标定义集中管理，业务与工程读同一份真相，杜绝"两个数"的扯皮。</p>
+        <ul>
+          <li><i data-lucide="check" style="width:16px;height:16px"></i> 指标血缘一键追踪</li>
+          <li><i data-lucide="check" style="width:16px;height:16px"></i> 权限到字段级</li>
+        </ul>
+      </div>
+      <div class="feature-media"><span class="badge"><i data-lucide="layers" style="width:22px;height:22px"></i></span></div>
+    </div>
+
+    <div class="feature">
+      <div>
+        <h3>嵌入式分析</h3>
+        <p>几行代码把看板嵌进你自己的产品，主题、字体、圆角全跟随你的品牌。</p>
+        <ul>
+          <li><i data-lucide="check" style="width:16px;height:16px"></i> iframe / SDK 双形态</li>
+          <li><i data-lucide="check" style="width:16px;height:16px"></i> 单点登录无缝接管</li>
+        </ul>
+      </div>
+      <div class="feature-media"><span class="badge"><i data-lucide="puzzle" style="width:22px;height:22px"></i></span></div>
+    </div>
+  </section>
+  <script>lucide.createIcons();</script>
+</body>
+</html>
